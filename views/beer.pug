@@ -1,0 +1,16 @@
+extends layout
+
+
+block content
+  h1= title
+  p Welcome to #{title}
+  - var results = [{name:"BudLight", type: "Lager", price:12}, {name:"Colt45", type: "Malt", price:13},{name:"WellsIPA", type: "Ale", price:14}]
+  div(class="container-fluid") 
+  div(class="row")
+  -
+  each item,index in results
+    div(class="col-sm-2 "  onclick=`buy(${index})`) #{item.name} - #{item.type} - #{item.price} 
+  script.
+    function buy(itemNo){
+      alert(`You purchased Item ${itemNo+1}`)
+    }

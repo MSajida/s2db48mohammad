@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  - let rows= Number(query.rows);
+  - let cols= Number(query.cols);
+  if (!(Number.isInteger(rows))||!(Number.isInteger(cols)))
+    p Rows and cols must be integer
+  else if ((rows>=1 && rows<=10)&&(cols>=1 && cols<=10))
+    table
+      - for(let i=0;i<rows;i++){
+          tr 
+              - for(let j=0;j<cols;j++){
+                  td= i+(j*j)
+              - }
+      - }
+  

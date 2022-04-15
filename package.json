@@ -10,7 +10,6 @@
     "debug": "^4.3.4",
     "express": "^4.17.3",
     "http-errors": "^2.0.0",
-    "mongodb": "^4.5.0",
     "mongoose": "^6.2.10",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"

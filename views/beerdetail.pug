@@ -1,0 +1,22 @@
+extends layout
+
+block content 
+  h1= title 
+ 
+  - let beerid = toShow._id 
+  - let name = toShow.name 
+  - let type = toShow.type 
+  - let price = toShow.price 
+  div 
+    div.row 
+      div(class='beerAttr mr-3') Beer ID is: 
+      div #{beerid} 
+    div.row 
+      div(class='beerAttr mr-3') Beer name is: 
+      div #{name} 
+    div.row 
+      div(class='beerAttr mr-3') Beer Type is: 
+      div #{type} 
+    div.row 
+      div(class='beerAttr mr-3') Beer Price is: 
+      div #{price} 

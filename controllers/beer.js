@@ -25,9 +25,9 @@ exports.beer_create_post = function (req, res) {
 };
 
 // Handle Costume delete form on DELETE. 
-exports.beer_delete = function (req, res) {
-    res.send('NOT IMPLEMENTED: beer delete DELETE ' + req.params.id);
-};
+//exports.beer_delete = function (req, res) {
+//  res.send('NOT IMPLEMENTED: beer delete DELETE ' + req.params.id);
+//};
 
 // Handle Costume update form on PUT. 
 //exports.beer_update_put = function(req, res) { 
@@ -85,7 +85,7 @@ ${JSON.stringify(req.body)}`)
     try {
         let toUpdate = await beer.findById(req.params.id)
         console.log(toUpdate + " toup")
-        
+
         // Do updates of properties 
         if (req.body.type) toUpdate.type = req.body.type;
         if (req.body.name) toUpdate.name = req.body.name;
@@ -98,4 +98,75 @@ ${JSON.stringify(req.body)}`)
         res.send(`{"error": ${err}: Update for id ${req.params.id} 
 failed`);
     }
-}; 
+};
+
+// Handle Costume delete on DELETE. 
+exports.beer_delete = async function (req, res) {
+    console.log("delete " + req.params.id)
+    try {
+        result = await beer.findByIdAndDelete(req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": Error deleting ${err}}`);
+    }
+
+};
+
+// Handle a show one view with id specified by query 
+exports.beer_view_one_Page = async function (req, res) {
+    console.log("single view for id " + req.query.id)
+    try {
+        result = await beer.findById(req.query.id)
+        res.render('beerdetail',
+            { title: 'Beer Detail', toShow: result });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+
+};
+
+// Handle building the view for creating a costume. 
+// No body, no in path parameter, no query. 
+// Does not need to be async 
+exports.beer_create_Page = function (req, res) {
+    console.log("create view")
+    try {
+        res.render('beercreate', { title: 'Beer Create' });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+// Handle building the view for updating a beer. 
+// query provides the id 
+exports.beer_update_Page = async function (req, res) {
+    console.log("update view for item " + req.query.id)
+    try {
+        let result = await beer.findById(req.query.id)
+        res.render('beerupdate', { title: 'Beer Update', toShow: result });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+// Handle a delete one view with id from query 
+exports.beer_delete_Page = async function (req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try {
+        result = await beer.findById(req.query.id)
+        res.render('beerdelete', {title: 'Beer Delete', toShow:result });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+

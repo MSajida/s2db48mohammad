@@ -16,7 +16,7 @@ router.get('/', api_controller.api);
 router.post('/beer', beer_controller.beer_create_post); 
  
 // DELETE request to delete Costume. 
-router.delete('/resource/beers/:id', beer_controller.beer_delete); 
+router.delete('/beers/:id', beer_controller.beer_delete); 
  
 // PUT request to update Costume. 
 router.put('/beers/:id', 

@@ -2,16 +2,15 @@ extends layout
  
 block content 
   h1= title 
- 
-  - let beerid = toShow._id 
-  - let name = toShow.name
+  - let id = toShow._id 
+  - let name = toShow.name 
   - let type = toShow.type 
   - let price = toShow.price 
    
   div.row(class='mb-2') 
     div.mr-1 ID is 
-    div #{beerid} 
-  - let actionid = "/resource/beer/" + beerid 
+    div #{id} 
+  - let actionid = "/resource/beers/" + id 
   form(id='BeerForm', action= actionid, method="PUT") 
     div.form-group 
         label.beerAttr(for='name') Beer name 
@@ -20,19 +19,19 @@ block content
         label.beerAttr(for='type') Beer type 
         input#type(type='text', name='type', value= type ) 
     div.form-group 
-        label.beerAttr(for='price') Beer cost 
-        input#price(type='number', name='price', value= price ) 
+        label.beerAttr(for='price') Beer price 
+        input#price(type='number', name='price', value= price) 
     input(type="submit") 
  
   script. 
     document.forms['BeerForm'].addEventListener('submit', (event) => { 
       event.preventDefault(); 
-      // TODO do something here to show user that form is being submitted 
+      
       fetch(event.target.action, { 
         method: 'PUT', 
-        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+        body: new URLSearchParams(new FormData(event.target)) 
       }).then((resp) => { 
-        return resp.text(); // or resp.text() or whatever the server sends 
+        return resp.text(); 
       }).then((body) => { 
         alert("Update succeded") 
         // TODO handle body 
@@ -41,4 +40,3 @@ block content
         alert("Update failed " + error ) 
       }); 
     }); 
- 

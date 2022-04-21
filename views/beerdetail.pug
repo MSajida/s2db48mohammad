@@ -2,7 +2,9 @@ extends layout
 
 block content 
   h1= title 
- 
+  if (toShow == null)
+    h2 No instance to display details 
+  else
   - let beerid = toShow._id 
   - let name = toShow.name 
   - let type = toShow.type 

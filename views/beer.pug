@@ -1,16 +1,16 @@
-extends layout
-
-
-block content
-  h1= title
-  p Welcome to #{title}
-  - var results = theBeers
+extends layout 
+ 
+block content 
+  h1= title 
+  - let items = results; 
   div(class="container-fluid") 
-  div(class="row")
-  -
-  each item,index in results
-    div(class="col-sm-2 "  onclick=`buy(${index})`) #{item.name} - #{item.type} - #{item.price} 
-  script.
-    function buy(itemNo){
-      alert(`You purchased Item ${itemNo+1}`)
-    }
+    div(class="row m-1") 
+      each item in items  
+        - let destination = `dispatch(\"/beer/update?id=${item._id}\")` 
+        div(class="row-sm-2", class="m-1") Item #{item.name}(#{item.type}) is #{item.price} 
+          button.btn( class="btn-primary ml-1", onclick= destination) Update 
+   
+  script. 
+    function dispatch(path){ 
+      window.location.href=path 
+    } 

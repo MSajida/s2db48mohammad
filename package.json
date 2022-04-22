@@ -9,9 +9,13 @@
     "cookie-parser": "~1.4.4",
     "debug": "^4.3.4",
     "express": "^4.17.3",
+    "express-session": "^1.17.2",
     "http-errors": "^2.0.0",
     "mongoose": "^6.2.10",
     "morgan": "^1.10.0",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^7.0.0",
     "pug": "^3.0.2"
   },
   "description": "Webapps assignment 10",

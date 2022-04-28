@@ -5,6 +5,7 @@ exports.beer_list = async function (req, res) {
 
     try {
         theBeers = await beer.find();
+        res.render('beer', { title: 'beer Search Results', results: theBeers });
         res.send(theBeers);
     }
     catch (err) {
@@ -20,9 +21,6 @@ exports.beer_list = async function (req, res) {
 //};  
 
 // Handle Costume create on POST. 
-exports.beer_create_post = function (req, res) {
-    res.send('NOT IMPLEMENTED: beer create POST');
-};
 
 // Handle Costume delete form on DELETE. 
 //exports.beer_delete = function (req, res) {
@@ -57,25 +55,37 @@ exports.beer_detail = async function (req, res) {
     }
 };
 
+exports.beer_create_Page = async function(req, res) {
+    console.log("create view")
+    try {
+        res.render('beercreate', { title: 'beer Create' });
+    } catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+
 // Handle Costume create on POST. 
 exports.beer_create_post = async function (req, res) {
-    console.log(req.body)
+    console.log("1231")
     let document = new beer();
-    // We are looking for a body, since POST does not have query parameters. 
-    // Even though bodies can be in many different formats, we will be picky 
-    // and require that it be a json object 
-    // {"costume_type":"goat", "cost":12, "size":"large"} 
     document.name = req.body.name;
     document.type = req.body.type;
     document.price = req.body.price;
     try {
+        console.log(res.body);
         let result = await document.save();
         res.send(result);
+    } catch (err) {
+        res.send(500, `{"error": ${err}}`);
     }
-    catch (err) {
-        res.status(500);
-        res.send(`{"error": ${err}}`);
-    }
+    //let document = new beer();
+    // We are looking for a body, since POST does not have query parameters. 
+    // Even though bodies can be in many different formats, we will be picky 
+    // and require that it be a json object 
+    // {"costume_type":"goat", "cost":12, "size":"large"} 
+    
 };
 
 // Handle Costume update form on PUT. 

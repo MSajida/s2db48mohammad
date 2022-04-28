@@ -6,9 +6,14 @@ block content
   div(class="container-fluid") 
     div(class="row m-1") 
       each item in items  
-        - let destination = `dispatch(\"/beer/update?id=${item._id}\")` 
+        - let destination = `dispatch(\"/resource/beer/update?id=${item._id}\")` 
+        - let destinationdelete = `dispatchDelete(\"/resource/beer/delete?id=${item._id}\")`
+        - let destinationcreate = `dispatchCreate(\"/resource/create\")`
+
         div(class="row-sm-2", class="m-1") Item #{item.name}(#{item.type}) is #{item.price} 
-          button.btn( class="btn-primary ml-1", onclick= destination) Update 
+          button.btn( class="btn-primary " class="m-1" class="btn-toolbar", onclick= destinationcreate) Create
+          button.btn( class="btn-danger" class="m-1" class="btn-toolbar", onclick= destinationdelete) Delete
+          button.btn( class="btn-primary"  class="m-1" class="btn-toolbar", onclick= destination) Update 
    
   script. 
     function dispatch(path){ 

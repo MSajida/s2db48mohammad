@@ -2,8 +2,8 @@ extends layout
  
 block content 
   h1= title 
- 
-  form(id='BeerForm', action="/resource/beer", method="POST") 
+  
+  form(id='BeerForm', action="/resource/be", method="POST") 
     div.form-group 
         label.beerAttr(for='name') Beer name
         input#name(type='text', name='name') 
@@ -15,20 +15,27 @@ block content
         input#price(type='number', name='price') 
     input(type="submit") 
  
-  script. 
-    document.forms['BeerForm'].addEventListener('submit', (event) => { 
-      event.preventDefault(); 
-      // TODO do something here to show user that form is being submitted 
-      fetch(event.target.action, { 
-        method: 'POST', 
-        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
-      }).then((resp) => { 
-        return resp.json(); // or resp.text() or whatever the server sends 
-      }).then((body) => { 
-        alert("Save succeded") 
-        // TODO handle body 
-      }).catch((error) => { 
-        // TODO handle error 
-        alert("Save failed " + error ) 
-      }); 
-    }); 
+  script.
+    document.forms['BeerForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) 
+      }).then((resp) => {
+        document.getElementById("errors").style.display="block"
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        if(body.name){
+          document.getElementById("errors").innerHTML=`${body.name}  \n ${body.message}\n`;
+          alert("Save Failed")
+        }else{
+           alert("Save succeded")
+        }
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        //- document.getElementById("errors").style.display="block"
+        //- document.getElementById("errors").innerHTML="hello";
+        alert("Save failed " + error)
+      });
